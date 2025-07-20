@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>زبدة المباراة - خلاصة اللحظات الذهبية</title>
+    
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Bootstrap CSS RTL -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.rtl.min.css">
+    <!-- Google Fonts - Tajawal -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #2c7873;
+            --secondary-color: #6fb98f;
+            --accent-color: #ff9a00;
+            --light-bg: #f5f5f5;
+            --dark-text: #2d3436;
+            --card-bg: #ffffff;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            padding-bottom: 80px;
+            position: relative;
+            min-height: 100vh;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .logo {
+            font-weight: 900;
+            font-size: 28px;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+            font-size: 20px;
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-weight: 500;
+            margin: 0 8px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+        
+        .upload-container {
+            max-width: 700px;
+            width: 100%;
+            padding: 40px;
+            margin: 40px auto;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .section-title {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            position: relative;
+            text-align: center;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--accent-color);
+            margin: 10px auto;
+            border-radius: 3px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .form-control, .form-select {
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            transition: all 0.3s;
+            background-color: var(--card-bg);
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.25rem rgba(111, 185, 143, 0.25);
+        }
+        
+        /* Loading spinner */
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(44, 120, 115, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Progress bar */
+        .progress {
+            height: 10px;
+            border-radius: 5px;
+            background-color: #e9ecef;
+            margin: 20px 0;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            transition: width 0.6s ease;
+        }
+        
+        /* Video result section */
+        .video-result {
+            display: none;
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px auto;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            max-width: 800px;
+            text-align: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            background: #000;
+        }
+        
+        .video-container video {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .download-btn {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            font-weight: 700;
+            padding: 12px 30px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+        }
+        
+        .download-btn:hover {
+            background-color: #e68a00;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 154, 0, 0.3);
+            color: white;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 25px 0;
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        .footer p {
+            margin: 0;
+            font-weight: 500;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* RTL adjustments */
+        .form-select {
+            background-position: left 0.75rem center;
+            padding-right: 0.75rem;
+        }
+        
+        /* Language switcher */
+        .lang-switcher {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            padding: 5px 10px;
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .upload-container {
+                padding: 25px;
+                margin: 20px auto;
+            }
+            
+            .header .navbar {
+                margin-top: 15px;
+            }
+        }
+        
+        /* Accessibility Styles */
+        .accessibility-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 999;
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .accessibility-btn:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+        
+        .accessibility-panel {
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            z-index: 998;
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            width: 250px;
+            display: none;
+        }
+        
+        .accessibility-panel h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 18px;
+        }
+        
+        .accessibility-option {
+            margin-bottom: 10px;
+        }
+        
+        .accessibility-option button {
+            background-color: var(--light-bg);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            text-align: right;
+            transition: all 0.3s;
+        }
+        
+        .accessibility-option button:hover {
+            background-color: #e0e0e0;
+        }
+        
+        /* High contrast mode */
+        .high-contrast {
+            background-color: black !important;
+            color: white !important;
+        }
+        
+        .high-contrast .upload-container,
+        .high-contrast .video-result {
+            background-color: #111 !important;
+            color: white !important;
+            border-color: #444 !important;
+        }
+        
+        .high-contrast .form-control,
+        .high-contrast .form-select {
+            background-color: #222 !important;
+            color: white !important;
+            border-color: #444 !important;
+        }
+        
+        .high-contrast .section-title {
+            color: yellow !important;
+        }
+        
+        /* Large text mode */
+        .large-text {
+            font-size: 20px !important;
+        }
+        
+        .large-text .section-title {
+            font-size: 28px !important;
+        }
+        
+        .large-text button,
+        .large-text input,
+        .large-text select {
+            font-size: 20px !important;
+            padding: 15px 20px !important;
+        }
+        
+        /* Skip to content link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+        
+        /* Screen reader only class */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* Terms Checkbox Styles */
+        .form-check-input {
+            margin-left: 0.5em;
+            margin-right: -1.5em;
+        }
+
+        .form-check-label {
+            padding-right: 1.5em;
+        }
+
+        /* Modal RTL Styles */
+        .modal-header .btn-close {
+            margin: -0.5rem auto -0.5rem -0.5rem;
+        }
+
+        .modal-body {
+            text-align: right;
+        }
+
+        .modal-body h6 {
+            font-weight: 700;
+        }
+
+        .modal-body ul {
+            padding-right: 1.5rem;
+        }
+
+        /* About Us Modal Styles */
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            text-align: right;
+        }
+
+        .about-team {
+            background-color: rgba(111, 185, 143, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .about-team h4 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .about-values {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .value-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            width: 160px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .value-icon {
+            font-size: 24px;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .value-title {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Skip to content link for screen readers -->
+    <a href="#main-content" class="skip-link">تخطي إلى المحتوى الرئيسي</a>
+    
+    <!-- Accessibility Button -->
+    <div class="accessibility-btn" id="accessibilityBtn" aria-label="إعدادات إمكانية الوصول">
+        <i class="fas fa-universal-access"></i>
+    </div>
+    
+    <!-- Accessibility Panel -->
+    <div class="accessibility-panel" id="accessibilityPanel">
+        <h3>خيارات إمكانية الوصول</h3>
+        <div class="accessibility-option">
+            <button id="increaseFontBtn">
+                <i class="fas fa-text-height"></i> تكبير الخط
+            </button>
+        </div>
+        <div class="accessibility-option">
+            <button id="decreaseFontBtn">
+                <i class="fas fa-text-width"></i> تصغير الخط
+            </button>
+        </div>
+        <div class="accessibility-option">
+            <button id="contrastBtn">
+                <i class="fas fa-adjust"></i> وضع التباين العالي
+            </button>
+        </div>
+        <div class="accessibility-option">
+            <button id="resetAccessibilityBtn">
+                <i class="fas fa-undo"></i> إعادة التعيين
+            </button>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <span>زبدة المباراة</span>
+                </div>
+                <nav class="navbar">
+                    <a href="/login" class="nav-link">تسجيل الدخول</a>
+                    <a href="/signup" class="nav-link">حساب جديد</a>
+                    <a href="#" id="aboutUsBtn" class="nav-link">عن التطبيق</a>
+                    <select id="languageSwitcher" class="lang-switcher" onchange="switchLanguage()">
+                        <option value="ar">العربية</option>
+                        <option value="en">English</option>
+                    </select>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container" id="main-content">
+        <div class="upload-container animate__animated animate__fadeIn">
+            <h2 class="section-title">استخلاص اللحظات الذهبية</h2>
+            <p class="text-center mb-4" style="color: #555; font-size: 16px;">
+                ارفع المباراة... وخذ الزبدة!
+            </p>
+            
+            <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+                <div class="form-group mb-4">
+                    <label for="sport_type" class="form-label">نوع الرياضة:</label>
+                    <select class="form-select" id="sport_type" name="sport_type" required>
+                        <option value="Football">كرة القدم</option>
+                        <option value="Basketball">كرة السلة</option>
+                        <option value="Handball">كرة اليد</option>
+                        <option value="Martial Arts">فنون قتالية</option>
+                        <option value="Car Racing">سباق سيارات</option>
+                    </select>
+                </div>
+                <div class="form-group mb-4" id="momentTypeContainer" style="display: none;">
+                    <label for="moment_type" class="form-label">نوع اللحظة:</label>
+                    <select class="form-select" id="moment_type" name="moment_type">
+                        <option value="all">الملخص الكامل</option>
+                        <!-- سيتم إضافة الخيارات ديناميكياً -->
+                    </select>
+                </div>
+                
+
+                <div class="form-group mb-4">
+                    <label for="fileUpload" class="form-label">اختر ملف الفيديو:</label>
+                    <input type="file" class="form-control" id="fileUpload" name="file" accept="video/*" required aria-describedby="fileHelp">
+                    <div class="form-text" id="fileHelp">يدعم جميع أنواع الفيديوهات الرياضية بجودة عالية</div>
+                </div>
+
+                <div class="form-group mb-4 form-check">
+                    <input type="checkbox" class="form-check-input" id="termsCheck" required>
+                    <label class="form-check-label" for="termsCheck">
+                        أوافق على 
+                        <a href="#" id="showTermsBtn" class="text-primary">شروط الاستخدام وسياسة الخصوصية</a>
+                    </label>
+                    <div class="invalid-feedback">
+                        يجب الموافقة على الشروط قبل المتابعة
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center mt-4">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-magic me-2"></i> استخلاص الزبدة
+                    </button>
+                </div>
+            </form>
+            
+            <!-- Upload Progress -->
+            <div id="uploadProgress" style="display: none;">
+                <div class="progress">
+                    <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p id="progressText" class="text-center text-muted mt-2">جاري تحليل المحتوى الرياضي...</p>
+            </div>
+            
+            <!-- Loading Spinner -->
+            <div id="loadingSpinner" style="display: none;">
+                <div class="spinner" role="status" aria-label="جاري التحميل">
+                    <span class="sr-only">جاري التحميل...</span>
+                </div>
+                <p class="text-center" style="color: var(--primary-color); font-weight: 500;">
+                    جاري تحديد الأهداف واللحظات الحاسمة، هذه العملية قد تستغرق عدة دقائق
+                </p>
+            </div>
+        </div>
+
+        <!-- Video Result Section -->
+        <div id="videoResult" class="video-result">
+            <h3 class="section-title">زبدة المباراة</h3>
+            <div class="video-container">
+                <video id="highlightVideo" controls aria-label="فيديو ملخص المباراة">
+                    المتصفح الخاص بك لا يدعم تشغيل الفيديو
+                </video>
+            </div>
+            <a id="downloadLink" href="#" class="download-btn">
+                <i class="fas fa-download me-2"></i> حفظ الزبدة
+            </a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 زبدة المباراة. جميع الحقوق محفوظة | تطوير سعودي <i class="fas fa-heart" style="color: #ff6b6b;"></i></p>
+        </div>
+    </footer>
+
+    <!-- Terms Modal -->
+    <div class="modal fade" id="termsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">سياسة الاستخدام وشروط الخدمة</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6 class="text-primary mb-3">1. حقوق المحتوى</h6>
+                    <p>عند رفعك لأي فيديو إلى "زبدة المباراة"، فإنك تقرّ وتتعهد بأنك:</p>
+                    <ul>
+                        <li>تملك الحقوق القانونية الكاملة للمحتوى الذي ترفعه</li>
+                        <li>أو تملك إذنًا صريحًا من صاحب الحقوق باستخدام هذا المحتوى</li>
+                    </ul>
+                    <p>أنت المسؤول الوحيد عن أي محتوى تقوم برفعه عبر الموقع.</p>
+
+                    <h6 class="text-primary mt-4 mb-3">2. الغرض من الخدمة</h6>
+                    <p>موقع "زبدة المباراة" يقدم أداة مدعومة بالذكاء الاصطناعي تساعد المستخدمين في توليد ملخصات قصيرة لمقاطع الفيديو الرياضية.</p>
+
+                    <h6 class="text-primary mt-4 mb-3">3. استخدام قانوني فقط</h6>
+                    <p>يُمنع استخدام الموقع في معالجة أو نشر محتوى مخالف لأنظمة المملكة العربية السعودية أو حقوق النشر المحلية أو العالمية.</p>
+
+                    <h6 class="text-primary mt-4 mb-3">4. سياسة الإبلاغ</h6>
+                    <p>إذا كنت مالكًا لحقوق محتوى وتعتقد أن أحد المستخدمين انتهك حقوقك، نرجو التواصل معنا عبر <a href="mailto:legal@zubdatmatch.com">legal@zubdatmatch.com</a></p>
+
+                    <h6 class="text-primary mt-4 mb-3">5. حدود المسؤولية</h6>
+                    <p>لا يضمن الموقع دقة النتائج بنسبة 100%، وقد تختلف النتائج بحسب جودة الفيديو.</p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-primary px-5" data-bs-dismiss="modal">
+                        <i class="fas fa-thumbs-up me-2"></i>حسنًا
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Us Modal -->
+    <div class="modal fade" id="aboutUsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">من نحن</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-4">
+                        <alt="فريق زبدة المباراة" class="rounded-circle mb-3" style="width: 120px; height: 120px; object-fit: cover;">
+                        <h4 class="text-primary">فريق زبدة المباراة</h4>
+                    </div>
+                    
+                    <div class="about-content">
+                        <p>
+                            نحن فريق سعودي شغوف بالتقنية والرياضة، عملنا على تطوير زبدة المباراة، وهو موقع ذكي يستخدم تقنيات الذكاء الاصطناعي لمساعدة محبّي الرياضة وصنّاع المحتوى على استخراج أهم لحظات المباريات بسهولة وسرعة.
+                        </p>
+                        
+                        <p>
+                            نسعى لتقديم تجربة مبتكرة تختصر وقتك، وتجعلك دائمًا في قلب الحدث، حتى لو فاتتك المباراة. نؤمن بقوة المحتوى القصير ودوره في تطوير الإعلام الرياضي، ونعمل على تقديم أدوات ذكية تجعل من صناعة المحتوى الرياضي تجربة أسرع وأكثر احترافية.
+                        </p>
+                        
+                        <div class="about-team">
+                            <h4>قيمنا الأساسية</h4>
+                            <div class="about-values">
+                                <div class="value-card">
+                                    <div class="value-icon">
+                                        <i class="fas fa-lightbulb"></i>
+                                    </div>
+                                    <div class="value-title">الابتكار</div>
+                                    <div class="value-desc">نطور حلولاً غير تقليدية</div>
+                                </div>
+                                <div class="value-card">
+                                    <div class="value-icon">
+                                        <i class="fas fa-bolt"></i>
+                                    </div>
+                                    <div class="value-title">السرعة</div>
+                                    <div class="value-desc">خدمة فائقة السرعة</div>
+                                </div>
+                                <div class="value-card">
+                                    <div class="value-icon">
+                                        <i class="fas fa-shield-alt"></i>
+                                    </div>
+                                    <div class="value-title">الأمان</div>
+                                    <div class="value-desc">خصوصية بياناتك أولويتنا</div>
+                                </div>
+                                <div class="value-card">
+                                    <div class="value-icon">
+                                        <i class="fas fa-heart"></i>
+                                    </div>
+                                    <div class="value-title">الشغف</div>
+                                    <div class="value-desc">حب الرياضة يدفعنا</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <p class="text-center mt-4">
+                            <strong>زبدة المباراة… ارفع مباراتك، وخذ زبدتها.</strong>
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-primary px-5" data-bs-dismiss="modal">
+                        <i class="fas fa-thumbs-up me-2"></i>حسنًا
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // أضف هذا الكود قبل document.getElementById("uploadForm").addEventListener
+document.getElementById("sport_type").addEventListener("change", function() {
+    const sportType = this.value;
+    const momentTypeSelect = document.getElementById("moment_type");
+    const momentTypeContainer = document.getElementById("momentTypeContainer");
+    
+    // مسح الخيارات القديمة
+    momentTypeSelect.innerHTML = '<option value="all">الملخص الكامل</option>';
+    
+    if (SPORT_MOMENTS[sportType]) {
+        SPORT_MOMENTS[sportType].forEach(moment => {
+            const option = document.createElement("option");
+            option.value = moment.value;
+            option.textContent = moment.label;
+            momentTypeSelect.appendChild(option);
+        });
+        momentTypeContainer.style.display = "block";
+    } else {
+        momentTypeContainer.style.display = "none";
+    }
+});
+
+// تشغيل الحدث مرة واحدة عند التحميل
+document.getElementById("sport_type").dispatchEvent(new Event("change"));
+
+            document.getElementById("uploadForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    
+    if (!document.getElementById("termsCheck").checked) {
+        alert("يجب الموافقة على شروط الاستخدام أولاً");
+        return;
+    }
+    
+    const formData = new FormData(this);
+    const selectedMoment = document.getElementById("moment_type").value;
+    
+    // إضافة نوع اللحظة المطلوبة
+    if (selectedMoment && selectedMoment !== "all") {
+        formData.append("selected_moment", selectedMoment);
+    }
+            // Show loading elements
+            document.getElementById("uploadProgress").style.display = "block";
+            document.getElementById("loadingSpinner").style.display = "block";
+            document.getElementById("videoResult").style.display = "none";
+            
+            // Simulate progress (will be replaced by actual progress events)
+            simulateProgress();
+            
+            try {
+                const formData = new FormData(this);
+                
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const videoUrl = URL.createObjectURL(blob);
+                    
+                    // Set up video player
+                    const videoElement = document.getElementById("highlightVideo");
+                    videoElement.src = videoUrl;
+                    
+                    // Set up download link
+                    const downloadLink = document.getElementById("downloadLink");
+                    downloadLink.href = videoUrl;
+                    downloadLink.download = "زبدة المباراة.mp4";
+                    
+                    // Show result section
+                    document.getElementById("videoResult").style.display = "block";
+                    
+                    // Scroll to result smoothly
+                    setTimeout(() => {
+                        document.getElementById("videoResult").scrollIntoView({ 
+                            behavior: 'smooth' 
+                        });
+                    }, 300);
+                } else {
+                    const error = await response.json();
+                    alert("حدث خطأ: " + (error.error || "فشل في تحليل الفيديو"));
+                }
+            } catch (error) {
+                alert("خطأ في الشبكة: " + error.message);
+            } finally {
+                // Hide loading elements
+                document.getElementById("loadingSpinner").style.display = "none";
+                document.getElementById("uploadProgress").style.display = "none";
+            }
+        });
+        // بعد هذا الكود
+const SPORT_KEYWORDS = {
+    'Football': ["goal", "penalty kick", "shot", "dangerous attack", "corner kick", "yellow card", "red card"],
+    // ... بقية الرياضات
+};
+
+// أضف هذا الكود
+const SPORT_MOMENTS = {
+    'Football': [
+        {value: "goal", label: "هدف"},
+        {value: "penalty_kick", label: "ضربة جزاء"},
+        {value: "shot", label: "تسديدة"},
+        {value: "dangerous_attack", label: "هجوم خطير"},
+        {value: "corner_kick", label: "ركنية"},
+        {value: "yellow_card", label: "بطاقة صفراء"},
+        {value: "red_card", label: "بطاقة حمراء"}
+    ],
+    'Basketball': [
+        {value: "3-pointer", label: "ثلاثية"},
+        {value: "slam_dunk", label: "ضربة قاضية"},
+        {value: "fast_break", label: "هجوم سريع"},
+        {value: "steal", label: "استلاب"},
+        {value: "assist", label: "تمريرة حاسمة"},
+        {value: "foul", label: "مخالفة"}
+    ],
+    'Handball': [
+        {value: "goal", label: "هدف"},
+        {value: "save", label: "تصدي"},
+        {value: "penalty", label: "ضربة جزاء"},
+        {value: "fast_break", label: "هجوم سريع"},
+        {value: "turnover", label: "إضاعة الكرة"},
+        {value: "block", label: "صد"}
+    ],
+    'Martial Arts': [
+        {value: "knockout", label: "ضربة قاضية"},
+        {value: "submission", label: "إخضاع"},
+        {value: "takedown", label: "إسقاط"},
+        {value: "punch", label: "لكمة"},
+        {value: "kick", label: "ركلة"},
+        {value: "roundhouse", label: "ركلة دائرية"}
+    ],
+    'Car Racing': [
+        {value: "overtake", label: "تجاوز"},
+        {value: "crash", label: "اصطدام"},
+        {value: "fastest_lap", label: "أسرع لفة"},
+        {value: "pit_stop", label: "توقف في الصيانة"},
+        {value: "final_lap", label: "اللفة الأخيرة"},
+        {value: "victory", label: "فوز"}
+    ]
+};
+        
+        function simulateProgress() {
+            let progress = 0;
+            const progressBar = document.getElementById("progressBar");
+            const progressText = document.getElementById("progressText");
+            const steps = [
+                {percent: 20, text: "جاري معالجة الفيديو..."},
+                {percent: 45, text: "جاري تحليل المحتوى الرياضي..."},
+                {percent: 70, text: "تحديد الأهداف واللحظات الحاسمة..."},
+                {percent: 90, text: "تجميع النتائج..."},
+                {percent: 100, text: "اكتمل التحليل بنجاح!"}
+            ];
+            
+            steps.forEach((step, index) => {
+                setTimeout(() => {
+                    progressBar.style.width = step.percent + "%";
+                    progressBar.setAttribute('aria-valuenow', step.percent);
+                    progressText.textContent = step.text;
+                }, index * 1500);
+            });
+        }
+        
+        // Show terms modal
+        document.getElementById("showTermsBtn").addEventListener("click", function(e) {
+            e.preventDefault();
+            new bootstrap.Modal(document.getElementById('termsModal')).show();
+        });
+
+        // Show about us modal
+        document.getElementById("aboutUsBtn").addEventListener("click", function(e) {
+            e.preventDefault();
+            new bootstrap.Modal(document.getElementById('aboutUsModal')).show();
+        });
+
+        // Language switcher function
+        function switchLanguage() {
+            const language = document.getElementById("languageSwitcher").value;
+            const sportTypeSelect = document.getElementById("sport_type");
+            
+            if (language === "en") {
+                // English translations
+                document.documentElement.lang = "en";
+                document.documentElement.dir = "ltr";
+                document.title = "Zubdat Al-Mubara - AI Sports Highlights";
+                
+                // Header
+                document.querySelector(".logo span").textContent = "Zubdat Al-Mubara";
+                document.querySelectorAll(".nav-link")[0].textContent = "Login";
+                document.querySelectorAll(".nav-link")[1].textContent = "Sign Up";
+                document.querySelectorAll(".nav-link")[2].textContent = "About App";
+                
+                // Upload form
+                document.querySelector(".section-title").textContent = "Extract Golden Moments";
+                document.querySelector("p.text-center").textContent = "Upload the match... get the essence!";
+                document.querySelector("label[for='sport_type']").textContent = "Sport Type:";
+                document.querySelector("label[for='fileUpload']").textContent = "Choose Video File:";
+                document.querySelector(".form-text").textContent = "Supports all sports video formats in high quality";
+                document.querySelector("button[type='submit']").innerHTML = '<i class="fas fa-magic me-2"></i> Extract Highlights';
+                
+                // Terms checkbox
+                document.querySelector(".form-check-label").innerHTML = 'I agree to <a href="#" id="showTermsBtn" class="text-primary">Terms of Service and Privacy Policy</a>';
+                
+                // Translate sport types
+                const sportOptions = sportTypeSelect.options;
+                sportOptions[0].text = "Football";
+                sportOptions[1].text = "Basketball";
+                sportOptions[2].text = "Handball";
+                sportOptions[3].text = "Martial Arts";
+                sportOptions[4].text = "Car Racing";
+                        // ترجمة خيارات اللحظات
+        document.querySelector("#moment_type option[value='all']").textContent = "Full Highlights";
+        document.querySelector("label[for='moment_type']").textContent = "Moment Type:";
+        
+        // ترجمة خيارات الرياضات
+        if (document.getElementById("moment_type").options.length > 1) {
+            const sportType = document.getElementById("sport_type").value;
+            const momentTypeSelect = document.getElementById("moment_type");
+            
+            // مسح جميع الخيارات عدا الأول
+            while (momentTypeSelect.options.length > 1) {
+                momentTypeSelect.remove(1);
+            }
+            
+            // إضافة الخيارات المترجمة
+            SPORT_MOMENTS[sportType].forEach(moment => {
+                const option = document.createElement("option");
+                option.value = moment.value;
+                option.textContent = moment.value.replace(/_/g, ' '); // تحويل penalty_kick إلى penalty kick
+                momentTypeSelect.appendChild(option);
+            });
+        }
+                // Progress
+                document.getElementById("progressText").textContent = "Analyzing sports content...";
+                document.querySelector("#loadingSpinner p").textContent = "Identifying goals and key moments, this may take several minutes";
+                
+                // Results
+                document.querySelector("#videoResult .section-title").textContent = "Match Essence";
+                document.querySelector("#downloadLink").innerHTML = '<i class="fas fa-download me-2"></i> Save Highlights';
+                
+                // Footer
+                document.querySelector(".footer p").innerHTML = '© 2025 Zubdat Al-Mubara. All rights reserved | Saudi development <i class="fas fa-heart" style="color: #ff6b6b;"></i>';
+                
+                // Accessibility panel
+                document.querySelector("#accessibilityPanel h3").textContent = "Accessibility Options";
+                document.querySelector("#increaseFontBtn").innerHTML = '<i class="fas fa-text-height"></i> Increase Font';
+                document.querySelector("#decreaseFontBtn").innerHTML = '<i class="fas fa-text-width"></i> Decrease Font';
+                document.querySelector("#contrastBtn").innerHTML = '<i class="fas fa-adjust"></i> High Contrast Mode';
+                document.querySelector("#resetAccessibilityBtn").innerHTML = '<i class="fas fa-undo"></i> Reset Settings';
+                
+                // Modal content - Terms
+                document.querySelector("#termsModal .modal-title").textContent = "Terms of Service and Privacy Policy";
+                document.querySelector("#termsModal h6:nth-of-type(1)").textContent = "1. Content Rights";
+                document.querySelector("#termsModal ul").innerHTML = `
+                    <li>You own full legal rights to the content you upload</li>
+                    <li>Or you have explicit permission from the rights owner</li>
+                `;
+
+                document.querySelector("#termsModal p:nth-of-type(1)").textContent = "You are solely responsible for any content you upload through the site.";
+                document.querySelector("#termsModal h6:nth-of-type(2)").textContent = "2. Service Purpose";
+                document.querySelector("#termsModal p:nth-of-type(2)").textContent = '"Zubdat Al-Mubara" provides an AI-powered tool that helps users generate short summaries of sports videos.';
+                document.querySelector("#termsModal h6:nth-of-type(3)").textContent = "3. Legal Use Only";
+                document.querySelector("#termsModal p:nth-of-type(3)").textContent = 'It is prohibited to use the site to process or publish content that violates the laws of Saudi Arabia or local or international copyrights.';
+                document.querySelector("#termsModal h6:nth-of-type(4)").textContent = "4. Reporting Policy";
+                document.querySelector("#termsModal p:nth-of-type(4)").innerHTML = 'If you are a content owner and believe that a user has violated your rights, please contact us at <a href="mailto:legal@zubdatmatch.com">legal@zubdatmatch.com</a>';
+                document.querySelector("#termsModal h6:nth-of-type(5)").textContent = "5. Liability Limits";
+                document.querySelector("#termsModal p:nth-of-type(5)").textContent = 'The site does not guarantee 100% accuracy of results, and results may vary depending on video quality.';
+                document.querySelector("#termsModal .modal-footer button").textContent = "I Understand the Terms";
+                // Modal content - About Us
+                document.querySelector("#aboutUsModal .modal-title").textContent = "About Us";
+                document.querySelector("#aboutUsModal .text-primary").textContent = "Zubdat Al-Mubara Team";
+                
+                const aboutContent = document.querySelector("#aboutUsModal .about-content");
+                aboutContent.innerHTML = `
+                    <p>
+                        We are a Saudi team passionate about technology and sports. We developed Zubdat Al-Mubara, a smart platform that uses AI technologies to help sports enthusiasts and content creators extract the most important match moments easily and quickly.
+                    </p>
+                    
+                    <p>
+                        We strive to provide an innovative experience that saves your time and keeps you at the heart of the event, even if you missed the match. We believe in the power of short content and its role in developing sports media, and we work to provide smart tools that make sports content production faster and more professional.
+                    </p>
+                    
+                    <div class="about-team">
+                        <h4>Our Core Values</h4>
+                        <div class="about-values">
+                            <div class="value-card">
+                                <div class="value-icon">
+                                    <i class="fas fa-lightbulb"></i>
+                                </div>
+                                <div class="value-title">Innovation</div>
+                                <div class="value-desc">We develop unconventional solutions</div>
+                            </div>
+                            <div class="value-card">
+                                <div class="value-icon">
+                                    <i class="fas fa-bolt"></i>
+                                </div>
+                                <div class="value-title">Speed</div>
+                                <div class="value-desc">Ultra-fast service</div>
+                            </div>
+                            <div class="value-card">
+                                <div class="value-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="value-title">Security</div>
+                                <div class="value-desc">Your privacy is our priority</div>
+                            </div>
+                            <div class="value-card">
+                                <div class="value-icon">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <div class="value-title">Passion</div>
+                                <div class="value-desc">Driven by love for sports</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="text-center mt-4">
+                        <strong>Zubdat Al-Mubara... Upload your match, get its essence.</strong>
+                    </p>
+                `;
+                
+                document.querySelector("#aboutUsModal .modal-footer button").innerHTML = '<i class="fas fa-thumbs-up me-2"></i>OK';
+            } else {
+                // Arabic translations (default)
+                document.documentElement.lang = "ar";
+                document.documentElement.dir = "rtl";
+                document.title = "زبدة المباراة - خلاصة اللحظات الذهبية";
+                
+                // Header
+                document.querySelector(".logo span").textContent = "زبدة المباراة";
+                document.querySelectorAll(".nav-link")[0].textContent = "تسجيل الدخول";
+                document.querySelectorAll(".nav-link")[1].textContent = "حساب جديد";
+                document.querySelectorAll(".nav-link")[2].textContent = "عن التطبيق";
+                
+                // Upload form
+                document.querySelector(".section-title").textContent = "استخلاص اللحظات الذهبية";
+                document.querySelector("p.text-center").textContent = "ارفع المباراة... وخذ الزبدة!";
+                document.querySelector("label[for='sport_type']").textContent = "نوع الرياضة:";
+                document.querySelector("label[for='fileUpload']").textContent = "اختر ملف الفيديو:";
+                document.querySelector(".form-text").textContent = "يدعم جميع أنواع الفيديوهات الرياضية بجودة عالية";
+                document.querySelector("button[type='submit']").innerHTML = '<i class="fas fa-magic me-2"></i> استخلاص الزبدة';
+                
+                // Terms checkbox
+                document.querySelector(".form-check-label").innerHTML = 'أوافق على <a href="#" id="showTermsBtn" class="text-primary">شروط الاستخدام وسياسة الخصوصية</a>';
+                
+                // Translate sport types back to Arabic
+                const sportOptions = sportTypeSelect.options;
+                sportOptions[0].text = "كرة القدم";
+                sportOptions[1].text = "كرة السلة";
+                sportOptions[2].text = "كرة اليد";
+                sportOptions[3].text = "فنون قتالية";
+                sportOptions[4].text = "سباق سيارات";
+                        // إعادة خيارات اللحظات للعربية
+        document.querySelector("#moment_type option[value='all']").textContent = "الملخص الكامل";
+        document.querySelector("label[for='moment_type']").textContent = "نوع اللحظة:";
+        
+        // إعادة خيارات الرياضات للعربية
+        if (document.getElementById("moment_type").options.length > 1) {
+            const sportType = document.getElementById("sport_type").value;
+            const momentTypeSelect = document.getElementById("moment_type");
+            
+            // مسح جميع الخيارات عدا الأول
+            while (momentTypeSelect.options.length > 1) {
+                momentTypeSelect.remove(1);
+            }
+            
+            // إضافة الخيارات العربية
+            SPORT_MOMENTS[sportType].forEach(moment => {
+                const option = document.createElement("option");
+                option.value = moment.value;
+                option.textContent = moment.label;
+                momentTypeSelect.appendChild(option);
+            });
+        }
+    
+                // Progress
+                document.getElementById("progressText").textContent = "جاري تحليل المحتوى الرياضي...";
+                document.querySelector("#loadingSpinner p").textContent = "جاري تحديد الأهداف واللحظات الحاسمة، هذه العملية قد تستغرق عدة دقائق";
+                
+                // Results
+                document.querySelector("#videoResult .section-title").textContent = "زبدة المباراة";
+                document.querySelector("#downloadLink").innerHTML = '<i class="fas fa-download me-2"></i> حفظ الزبدة';
+                
+                // Footer
+                document.querySelector(".footer p").innerHTML = '© 2025 زبدة المباراة. جميع الحقوق محفوظة | تطوير سعودي <i class="fas fa-heart" style="color: #ff6b6b;"></i>';
+                
+                // Accessibility panel
+                document.querySelector("#accessibilityPanel h3").textContent = "خيارات إمكانية الوصول";
+                document.querySelector("#increaseFontBtn").innerHTML = '<i class="fas fa-text-height"></i> تكبير الخط';
+                document.querySelector("#decreaseFontBtn").innerHTML = '<i class="fas fa-text-width"></i> تصغير الخط';
+                document.querySelector("#contrastBtn").innerHTML = '<i class="fas fa-adjust"></i> وضع التباين العالي';
+                document.querySelector("#resetAccessibilityBtn").innerHTML = '<i class="fas fa-undo"></i> إعادة التعيين';
+                
+                // Modal content - Terms
+                document.querySelector("#termsModal .modal-title").textContent = "سياسة الاستخدام وشروط الخدمة";
+                document.querySelector("#termsModal h6:nth-of-type(1)").textContent = "1. حقوق المحتوى";
+                document.querySelector("#termsModal ul").innerHTML = `
+                    <li>تملك الحقوق القانونية الكاملة للمحتوى الذي ترفعه</li>
+                    <li>أو تملك إذنًا صريحًا من صاحب الحقوق باستخدام هذا المحتوى</li>
+                `;
+                document.querySelector("#termsModal p:nth-of-type(1)").textContent = "أنت المسؤول الوحيد عن أي محتوى تقوم برفعه عبر الموقع.";
+                document.querySelector("#termsModal h6:nth-of-type(2)").textContent = "2. الغرض من الخدمة";
+                document.querySelector("#termsModal p:nth-of-type(2)").textContent = 'موقع "زبدة المباراة" يقدم أداة مدعومة بالذكاء الاصطناعي تساعد المستخدمين في توليد ملخصات قصيرة لمقاطع الفيديو الرياضية.';
+                document.querySelector("#termsModal h6:nth-of-type(3)").textContent = "3. استخدام قانوني فقط";
+                document.querySelector("#termsModal p:nth-of-type(3)").textContent = 'يُمنع استخدام الموقع في معالجة أو نشر محتوى مخالف لأنظمة المملكة العربية السعودية أو حقوق النشر المحلية أو العالمية.';
+                document.querySelector("#termsModal h6:nth-of-type(4)").textContent = "4. سياسة الإبلاغ";
+                document.querySelector("#termsModal p:nth-of-type(4)").innerHTML = 'إذا كنت مالكًا لحقوق محتوى وتعتقد أن أحد المستخدمين انتهك حقوقك، نرجو التواصل معنا عبر <a href="mailto:legal@zubdatmatch.com">legal@zubdatmatch.com</a>';
+                document.querySelector("#termsModal h6:nth-of-type(5)").textContent = "5. حدود المسؤولية";
+                document.querySelector("#termsModal p:nth-of-type(5)").textContent = 'لا يضمن الموقع دقة النتائج بنسبة 100%، وقد تختلف النتائج بحسب جودة الفيديو.';
+                document.querySelector("#termsModal .modal-footer button").innerHTML = '<i class="fas fa-thumbs-up me-2"></i>حسنًا';
+                
+                // Modal content - About Us
+                document.querySelector("#aboutUsModal .modal-title").textContent = "من نحن";
+                document.querySelector("#aboutUsModal .text-primary").textContent = "فريق زبدة المباراة";
+                
+                const aboutContentAr = document.querySelector("#aboutUsModal .about-content");
+                aboutContentAr.innerHTML = `
+                    <p>
+                        نحن فريق سعودي شغوف بالتقنية والرياضة، عملنا على تطوير زبدة المباراة، وهو موقع ذكي يستخدم تقنيات الذكاء الاصطناعي لمساعدة محبّي الرياضة وصنّاع المحتوى على استخراج أهم لحظات المباريات بسهولة وسرعة.
+                    </p>
+                    
+                    <p>
+                        نسعى لتقديم تجربة مبتكرة تختصر وقتك، وتجعلك دائمًا في قلب الحدث، حتى لو فاتتك المباراة. نؤمن بقوة المحتوى القصير ودوره في تطوير الإعلام الرياضي، ونعمل على تقديم أدوات ذكية تجعل من صناعة المحتوى الرياضي تجربة أسرع وأكثر احترافية.
+                    </p>
+                    
+                    <div class="about-team">
+                        <h4>قيمنا الأساسية</h4>
+                        <div class="about-values">
+                            <div class="value-card">
+                                <div class="value-icon">
+                                    <i class="fas fa-lightbulb"></i>
+                                </div>
+                                <div class="value-title">الابتكار</div>
+                                <div class="value-desc">نطور حلولاً غير تقليدية</div>
+                            </div>
+                            <div class="value-card">
+                                <div class="value-icon">
+                                    <i class="fas fa-bolt"></i>
+                                </div>
+                                <div class="value-title">السرعة</div>
+                                <div class="value-desc">خدمة فائقة السرعة</div>
+                            </div>
+                            <div class="value-card">
+                                <div class="value-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="value-title">الأمان</div>
+                                <div class="value-desc">خصوصية بياناتك أولويتنا</div>
+                            </div>
+                            <div class="value-card">
+                                <div class="value-icon">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <div class="value-title">الشغف</div>
+                                <div class="value-desc">حب الرياضة يدفعنا</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="text-center mt-4">
+                        <strong>زبدة المباراة… ارفع مباراتك، وخذ زبدتها.</strong>
+                    </p>
+                `;
+                
+                document.querySelector("#aboutUsModal .modal-footer button").innerHTML = '<i class="fas fa-thumbs-up me-2"></i>حسنًا';
+            }
+        }
+        
+        // Accessibility Features
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle accessibility panel
+            const accessibilityBtn = document.getElementById('accessibilityBtn');
+            const accessibilityPanel = document.getElementById('accessibilityPanel');
+            
+            accessibilityBtn.addEventListener('click', function() {
+                accessibilityPanel.style.display = accessibilityPanel.style.display === 'block' ? 'none' : 'block';
+            });
+            
+            // Close panel when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!accessibilityPanel.contains(event.target) && event.target !== accessibilityBtn) {
+                    accessibilityPanel.style.display = 'none';
+                }
+            });
+            
+            // Increase font size
+            document.getElementById('increaseFontBtn').addEventListener('click', function() {
+                document.body.classList.add('large-text');
+                document.body.classList.remove('high-contrast');
+                localStorage.setItem('accessibility', 'large-text');
+            });
+            
+            // Decrease font size
+            document.getElementById('decreaseFontBtn').addEventListener('click', function() {
+                document.body.classList.remove('large-text');
+                localStorage.setItem('accessibility', 'normal');
+            });
+            
+            // High contrast mode
+            document.getElementById('contrastBtn').addEventListener('click', function() {
+                document.body.classList.toggle('high-contrast');
+                if (document.body.classList.contains('high-contrast')) {
+                    localStorage.setItem('accessibility', 'high-contrast');
+                } else {
+                    localStorage.setItem('accessibility', 'normal');
+                }
+            });
+            
+            // Reset accessibility settings
+            document.getElementById('resetAccessibilityBtn').addEventListener('click', function() {
+                document.body.className = '';
+                localStorage.setItem('accessibility', 'normal');
+            });
+            
+            // Load saved accessibility settings
+            const savedSetting = localStorage.getItem('accessibility');
+            if (savedSetting === 'large-text') {
+                document.body.classList.add('large-text');
+            } else if (savedSetting === 'high-contrast') {
+                document.body.classList.add('high-contrast');
+            }
+            
+            // ARIA attributes for better screen reader support
+            document.getElementById('fileUpload').setAttribute('aria-describedby', 'fileHelp');
+            document.getElementById('progressBar').setAttribute('aria-valuenow', '0');
+            document.getElementById('progressBar').setAttribute('aria-valuemin', '0');
+            document.getElementById('progressBar').setAttribute('aria-valuemax', '100');
+        });
+    </script>
+</body>
+</html>
