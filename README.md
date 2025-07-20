@@ -30,49 +30,39 @@ An AI-powered platform that automatically generates concise football match highl
 
 1. **Clone the repository**
 
-```bash
+
 git clone https://github.com/yourusername/yourrepo.git
 cd yourrepo
 Create and activate a Python virtual environment (recommended)
 
 On Windows:
 
-bash
-Copy
-Edit
+
 python -m venv venv
 venv\Scripts\activate
+
 On macOS/Linux:
 
-bash
-Copy
-Edit
+
 python3 -m venv venv
 source venv/bin/activate
+
 Install required Python libraries
 
-bash
-Copy
-Edit
 pip install -r requirements.txt
+
 If requirements.txt is not available, manually install the dependencies:
 
-bash
-Copy
-Edit
 pip install openai-whisper moviepy numpy pandas tqdm ffmpeg-python
+
 Ensure FFmpeg is installed on your system
 
 FFmpeg is required for video processing.
-
 Download from FFmpeg official site and add it to your system PATH.
 
 🖥️ Running the AI Processing Script
 Run the main Python script to process a full match video, generate the text transcript with Whisper, detect key events, and produce a highlight video.
 
-bash
-Copy
-Edit
 python highlight_generator.py --input path/to/match_video.mp4 --output path/to/output_summary.mp4
 Replace the paths with your actual video file locations.
 
