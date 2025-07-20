@@ -87,27 +87,27 @@ python highlight_generator.py --input path/to/match_video.mp4 --output path/to/o
 Below are screenshots illustrating the key steps of using the Smart Sports Summary Platform:
 
 1. **Website Homepage**
-   ![Website Homepage](images/website-homepage.png)
+   ![Website Homepage](website-homepage.png)
    The main interface where users start.
 
 2. **Quick Access Button Clicked**
-   ![Quick Access Button](images/quick-access.png)
+   ![Quick Access Button](quick-access.png)
    Accessing the video upload and summary features quickly.
 
 3. **Dark Mode Activated**
-   ![Dark Mode](images/dark-mode.png)
+   ![Dark Mode](dark-mode.png)
    Night theme for comfortable viewing.
 
 4. **Video Selected for Processing**
-   ![Video Selection](images/video-selection.png)
+   ![Video Selection](video-selection.png)
    Choosing a match video to analyze.
 
 5. **Video Running and Being Analyzed**
-   ![Processing Video](images/video-processing.png)
+   ![Processing Video](video-processing.png)
    The backend AI processing the video and extracting highlights.
 
 6. **Summary Video Generated**
-   ![Summary Result](images/summary-result.png)
+   ![Summary Result](summary-result.png)
    Final highlight video ready for playback.
 
 ---
