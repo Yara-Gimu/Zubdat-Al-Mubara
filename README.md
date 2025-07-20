@@ -30,80 +30,104 @@ An AI-powered platform that automatically generates concise football match highl
 
 1. **Clone the repository**
 
-
+```bash
 git clone https://github.com/yourusername/yourrepo.git
 cd yourrepo
-Create and activate a Python virtual environment (recommended)
+````
 
-On Windows:
+2. **Create and activate a Python virtual environment** (recommended)
 
+* On Windows:
 
+```bash
 python -m venv venv
 venv\Scripts\activate
+```
 
-On macOS/Linux:
+* On macOS/Linux:
 
-
+```bash
 python3 -m venv venv
 source venv/bin/activate
+```
 
-Install required Python libraries
+3. **Install required Python libraries**
 
+```bash
 pip install -r requirements.txt
+```
 
-If requirements.txt is not available, manually install the dependencies:
+*If `requirements.txt` is not available, manually install the dependencies:*
 
+```bash
 pip install openai-whisper moviepy numpy pandas tqdm ffmpeg-python
+```
 
-Ensure FFmpeg is installed on your system
+4. **Ensure FFmpeg is installed on your system**
 
-FFmpeg is required for video processing.
-Download from FFmpeg official site and add it to your system PATH.
+* FFmpeg is required for video processing.
+* Download from [FFmpeg official site](https://ffmpeg.org/download.html) and add it to your system PATH.
 
-🖥️ Running the AI Processing Script
+---
+
+## 🖥️ Running the AI Processing Script
+
 Run the main Python script to process a full match video, generate the text transcript with Whisper, detect key events, and produce a highlight video.
 
+```bash
 python highlight_generator.py --input path/to/match_video.mp4 --output path/to/output_summary.mp4
-Replace the paths with your actual video file locations.
+```
 
-📸 Project Demo & Usage Screenshots
+*Replace the paths with your actual video file locations.*
+
+---
+
+## 📸 Project Demo & Usage Screenshots
+
 Below are screenshots illustrating the key steps of using the Smart Sports Summary Platform:
 
-Website Homepage
+1. **Website Homepage**
+   ![Website Homepage](images/website-homepage.png)
+   The main interface where users start.
 
-The main interface where users start.
+2. **Quick Access Button Clicked**
+   ![Quick Access Button](images/quick-access.png)
+   Accessing the video upload and summary features quickly.
 
-Quick Access Button Clicked
+3. **Dark Mode Activated**
+   ![Dark Mode](images/dark-mode.png)
+   Night theme for comfortable viewing.
 
-Accessing the video upload and summary features quickly.
+4. **Video Selected for Processing**
+   ![Video Selection](images/video-selection.png)
+   Choosing a match video to analyze.
 
-Dark Mode Activated
+5. **Video Running and Being Analyzed**
+   ![Processing Video](images/video-processing.png)
+   The backend AI processing the video and extracting highlights.
 
-Night theme for comfortable viewing.
+6. **Summary Video Generated**
+   ![Summary Result](images/summary-result.png)
+   Final highlight video ready for playback.
 
-Video Selected for Processing
+---
 
-Choosing a match video to analyze.
+## 🔧 Notes
 
-Video Running and Being Analyzed
+* The project uses the pre-trained Whisper model; no additional training is required.
+* Only highlight videos are produced — no text summaries.
+* The frontend website serves to display the generated highlight videos.
+* Make sure to have FFmpeg installed and accessible from your system PATH.
 
-The backend AI processing the video and extracting highlights.
+---
 
-Summary Video Generated
+## 👩‍💻 Developer
 
-Final highlight video ready for playback.
+**Yara** — Computer Science student passionate about AI-driven media solutions aligned with Saudi Vision 2030.
 
-🔧 Notes
-The project uses the pre-trained Whisper model; no additional training is required.
+---
 
-Only highlight videos are produced — no text summaries.
+## 🌟 Vision
 
-The frontend website serves to display the generated highlight videos.
-
-Make sure to have FFmpeg installed and accessible from your system PATH.
-
-👩‍💻 Developer
-Yara — Computer Science student passionate about AI-driven media solutions aligned with Saudi Vision 2030.
-
-🌟 Vision
 This project enhances sports media consumption by leveraging AI to create accessible, efficient video summaries — empowering fans and media professionals alike.
+
