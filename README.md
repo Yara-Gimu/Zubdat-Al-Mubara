@@ -1,5 +1,3 @@
-
-```markdown
 # ⚽ Smart Sports Summary Platform (Zubdat Al-Mubara)
 
 An AI-powered platform that automatically generates concise football match highlight videos by detecting key events such as goals and cards — saving users the time of watching full matches.
