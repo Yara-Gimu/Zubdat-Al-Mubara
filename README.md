@@ -119,5 +119,3 @@ Below are screenshots illustrating the key steps of using the Smart Sports Summa
 ## 🌟 Vision
 
 This project enhances sports media consumption by leveraging AI to create accessible, efficient video summaries — empowering fans and media professionals alike.
-
-```
